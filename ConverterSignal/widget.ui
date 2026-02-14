@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <widget class="QTabWidget" name="Tabs">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>778</width>
+     <height>578</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="LengthTab">
+    <attribute name="title">
+     <string>Length</string>
+    </attribute>
+    <widget class="QDoubleSpinBox" name="LenInput">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>170</y>
+       <width>400</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+      </font>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="LenResult">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>300</y>
+       <width>400</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="InputBoxLen">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>170</y>
+       <width>200</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>meters (m)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>kilometers (km)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inches (in)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>feet (ft)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>miles (mi)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="ResultBoxLen">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>300</y>
+       <width>200</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>meters (m)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>kilometers (km)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inches (in)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>feet (ft)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>miles (mi)</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="MassTab">
+    <attribute name="title">
+     <string>Mass</string>
+    </attribute>
+    <widget class="QComboBox" name="ResultBoxMass">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>300</y>
+       <width>200</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>kilograms (kg)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>pounds (lb)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ounces (oz)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QDoubleSpinBox" name="MassInput">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>170</y>
+       <width>400</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+      </font>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="InputBoxMass">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>170</y>
+       <width>200</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>kilograms (kg)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>pounds (lb)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ounces (oz)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QDoubleSpinBox" name="MassResult">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>300</y>
+       <width>400</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="TemperatureTab">
+    <attribute name="title">
+     <string>Temperature</string>
+    </attribute>
+    <widget class="QDoubleSpinBox" name="TempResult">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>300</y>
+       <width>400</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="ResultBoxTemp">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>300</y>
+       <width>200</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>Celsius (°C)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Fahrenheit (°F)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Kelvin (K)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QDoubleSpinBox" name="TempInput">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>170</y>
+       <width>400</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+      </font>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="InputBoxTemp">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>170</y>
+       <width>200</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>Celsius (°C)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Fahrenheit (°F)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Kelvin (K)</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
