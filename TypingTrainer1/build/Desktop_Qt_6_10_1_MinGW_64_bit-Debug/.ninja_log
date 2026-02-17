@@ -1,0 +1,21 @@
+# ninja log v6
+6	507	7930446261945291	untitled_autogen/timestamp	6605a63c434da5ba
+6	507	7930446261945291	untitled_autogen/mocs_compilation.cpp	6605a63c434da5ba
+6	507	7930446261945291	C:/Qt_Labs/untitled/build/Desktop_Qt_6_10_1_MinGW_64_bit-Debug/untitled_autogen/timestamp	6605a63c434da5ba
+6	507	7930446261945291	C:/Qt_Labs/untitled/build/Desktop_Qt_6_10_1_MinGW_64_bit-Debug/untitled_autogen/mocs_compilation.cpp	6605a63c434da5ba
+514	1957	7930446262601324	CMakeFiles/untitled.dir/main.cpp.obj	9c73124209f9a6d
+511	1970	7930446262549631	CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.obj	ef69324c3f69fce9
+517	2396	7930446262601324	CMakeFiles/untitled.dir/mainwindow.cpp.obj	f02a54e946846135
+2396	2629	7930446281424072	untitled.exe	4fd21682e6caf1e0
+51	228	7930454985797340	untitled_autogen/timestamp	6605a63c434da5ba
+51	228	7930454985797340	untitled_autogen/mocs_compilation.cpp	6605a63c434da5ba
+51	228	7930454985797340	C:/Qt_Labs/untitled/build/Desktop_Qt_6_10_1_MinGW_64_bit-Debug/untitled_autogen/timestamp	6605a63c434da5ba
+51	228	7930454985797340	C:/Qt_Labs/untitled/build/Desktop_Qt_6_10_1_MinGW_64_bit-Debug/untitled_autogen/mocs_compilation.cpp	6605a63c434da5ba
+229	6288	7930454987573823	CMakeFiles/untitled.dir/mainwindow.cpp.obj	f02a54e946846135
+6288	6755	7930455048164440	untitled.exe	4fd21682e6caf1e0
+24	157	7930458058401796	untitled_autogen/timestamp	6605a63c434da5ba
+24	157	7930458058401796	untitled_autogen/mocs_compilation.cpp	6605a63c434da5ba
+24	157	7930458058401796	C:/Qt_Labs/untitled/build/Desktop_Qt_6_10_1_MinGW_64_bit-Debug/untitled_autogen/timestamp	6605a63c434da5ba
+24	157	7930458058401796	C:/Qt_Labs/untitled/build/Desktop_Qt_6_10_1_MinGW_64_bit-Debug/untitled_autogen/mocs_compilation.cpp	6605a63c434da5ba
+157	1905	7930458059736064	CMakeFiles/untitled.dir/mainwindow.cpp.obj	f02a54e946846135
+1905	2059	7930458077112215	untitled.exe	4fd21682e6caf1e0
