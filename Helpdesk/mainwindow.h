@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ticketdialog.h"
+#include "tickettablemodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,9 +21,11 @@ public:
 
 private slots:
     void on_actionNew_triggered();
+    void updateActions();
 
 private:
     Ui::MainWindow *ui;
     TicketDialog *ticketDialog = nullptr;
+    TicketTableModel *m_model = nullptr;
 };
 #endif // MAINWINDOW_H
