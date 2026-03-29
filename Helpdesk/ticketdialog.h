@@ -33,7 +33,7 @@ private slots:
     void on_btnSave_clicked();
     void on_btnClose_clicked();
     void on_btnCancel_clicked();
-    void on_btnEdit_clicked();
+    void onFormChanged();
 
 private:
     Ui::TicketDialog *ui;
@@ -42,6 +42,7 @@ private:
     QDateTime m_createdAt;
     Ticket collectTicket() const;
     bool isFormValid() const;
+    void updateButtonsState();
 };
 
 #endif // TICKETDIALOG_H

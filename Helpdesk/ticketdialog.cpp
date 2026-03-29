@@ -6,6 +6,7 @@ TicketDialog::TicketDialog(QWidget *parent)
     , ui(new Ui::TicketDialog)
 {
     ui->setupUi(this);
+    connect(ui->titleEdit, &QLineEdit::textChanged, this, &TicketDialog::onFormChanged);
 }
 
 TicketDialog::~TicketDialog()
@@ -26,7 +27,9 @@ void TicketDialog::setMode(DialogMode mode) {
     ui->btnEdit->setVisible(mode == DialogMode::View);
     ui->btnClose->setVisible(mode == DialogMode::View);
     ui->btnSave->setVisible(isEditable);
+    ui->btnSave->setDisabled(isEditable);
     ui->btnCancel->setVisible(isEditable);
+    updateButtonsState();
 }
 
 void TicketDialog::loadTicket(const Ticket &ticket) {
@@ -79,4 +82,13 @@ void TicketDialog::on_btnClose_clicked() {
 
 void TicketDialog::on_btnCancel_clicked() {
     close();
+}
+
+void TicketDialog::onFormChanged() {
+    updateButtonsState();
+}
+
+void TicketDialog::updateButtonsState() {
+    const bool editable = (m_mode == DialogMode::Edit || m_mode == DialogMode::New);
+    ui->btnSave->setEnabled(editable && isFormValid());
 }
