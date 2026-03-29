@@ -21,7 +21,10 @@ public:
 
 private slots:
     void on_actionNew_triggered();
+    void on_actionView_triggered();
     void updateActions();
+    void on_actionEdit_triggered();
+    void on_actionDelete_triggered();
 
 private:
     Ui::MainWindow *ui;

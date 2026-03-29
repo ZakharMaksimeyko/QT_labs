@@ -16,52 +16,28 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Priority:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QComboBox" name="statusCombo"/>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Description:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLineEdit" name="idEdit"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>ID:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Title:</string>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="2">
-      <widget class="QComboBox" name="priorityCombo"/>
+      <widget class="QComboBox" name="priorityCombo">
+       <item>
+        <property name="text">
+         <string>Open</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Close</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="8" column="0" colspan="3">
+      <widget class="QTextEdit" name="descEdit"/>
      </item>
      <item row="2" column="2">
       <widget class="QLineEdit" name="titleEdit"/>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Created at:</string>
-       </property>
-      </widget>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="idEdit"/>
      </item>
      <item row="6" column="2">
       <widget class="QLineEdit" name="createdTitle"/>
@@ -73,8 +49,54 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="0" colspan="3">
-      <widget class="QTextEdit" name="descEdit"/>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Description:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QComboBox" name="statusCombo">
+       <item>
+        <property name="text">
+         <string>Low</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>High</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Created at:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>ID:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Priority:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Title:</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -83,28 +105,28 @@
      <item>
       <widget class="QPushButton" name="btnEdit">
        <property name="text">
-        <string>PushButton</string>
+        <string>EDIT</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnSave">
        <property name="text">
-        <string>PushButton</string>
+        <string>SAVE</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCancel">
        <property name="text">
-        <string>PushButton</string>
+        <string>CANCEL</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnClose">
        <property name="text">
-        <string>PushButton</string>
+        <string>CLOSE</string>
        </property>
       </widget>
      </item>

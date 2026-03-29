@@ -2,6 +2,7 @@
 #define TICKETDIALOG_H
 
 #include <QDialog>
+#include "ticket.h"
 
 namespace Ui {
 class TicketDialog;
@@ -15,18 +16,32 @@ public:
     explicit TicketDialog(QWidget *parent = nullptr);
     ~TicketDialog();
 
-    // Наш enum для управления состояниями окна
     enum class DialogMode {
         View,
         Edit,
         New
     };
 
-    // Метод для переключения интерфейса
     void setMode(DialogMode mode);
+    void loadTicket(const Ticket &ticket);
+
+signals:
+    void createRequested(const Ticket &ticket);
+    void updateRequested(const Ticket &ticket);
+
+private slots:
+    void on_btnSave_clicked();
+    void on_btnClose_clicked();
+    void on_btnCancel_clicked();
+    void on_btnEdit_clicked();
 
 private:
     Ui::TicketDialog *ui;
+    DialogMode m_mode = DialogMode::New;
+    int m_currentId = -1;
+    QDateTime m_createdAt;
+    Ticket collectTicket() const;
+    bool isFormValid() const;
 };
 
 #endif // TICKETDIALOG_H
