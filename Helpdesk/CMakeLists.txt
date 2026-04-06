@@ -15,6 +15,7 @@ qt_add_executable(Helpdesk
     ticketdialog.h ticketdialog.cpp ticketdialog.ui
     ticket.h
     tickettablemodel.h tickettablemodel.cpp
+    csvticketrepository.h csvticketrepository.cpp
 )
 
 target_link_libraries(Helpdesk

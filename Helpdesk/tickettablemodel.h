@@ -24,6 +24,8 @@ public:
     void removeTicket(int row);
 
     Ticket getTicket(int row) const;
+    void setItems(const QList<Ticket> &items);
+    QList<Ticket> getItems() const;
 
 private:
     QVector<Ticket> m_tickets;

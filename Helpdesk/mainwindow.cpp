@@ -36,13 +36,19 @@ MainWindow::MainWindow(QWidget *parent)
         }
         newTicket.id = maxId + 1;
         m_model->addTicket(newTicket);
+        saveData();
     });
     connect(ticketDialog, &TicketDialog::updateRequested, this, [this](const Ticket &ticket) {
         QModelIndex cur = ui->tableView->currentIndex();
         if (cur.isValid()) {
             m_model->updateTicket(cur.row(), ticket);
+            saveData();
         }
     });
+
+    m_repository = new CsvTicketRepository("tickets.csv");
+    QList<Ticket> loadedTickets = m_repository->loadAll();
+    m_model->setItems(loadedTickets);
 }
 
 MainWindow::~MainWindow()
@@ -84,6 +90,7 @@ void MainWindow::on_actionDelete_triggered() {
     auto result = QMessageBox::question(this, "Удаление заявки", "Вы действительно хотите удалить выбранную заявку?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (result == QMessageBox::Yes) {
         m_model->removeTicket(cur.row());
+        saveData();
     }
 }
 void MainWindow::on_actionView_triggered() {
@@ -95,4 +102,11 @@ void MainWindow::on_actionView_triggered() {
     ticketDialog->show();
     ticketDialog->raise();
     ticketDialog->activateWindow();
+}
+
+void MainWindow::saveData()
+{
+    if (m_repository && m_model) {
+        m_repository->saveAll(m_model->getItems());
+    }
 }

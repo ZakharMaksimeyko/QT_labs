@@ -1,14 +1,6 @@
 #include "tickettablemodel.h"
 
-TicketTableModel::TicketTableModel(QObject *parent)
-    : QAbstractTableModel{parent}
-{
-    m_tickets.append({1, "Cannot connect to VPN", "Open", "High", "The VPN client is not connecting...", QDateTime::currentDateTime().addDays(-1)});
-    m_tickets.append({2, "Request new monitor", "In Progress", "Medium", "Need a second monitor for work.", QDateTime::currentDateTime().addSecs(-3600)});
-    m_tickets.append({3, "Reset password", "Closed", "Low", "Forgot my domain password.", QDateTime::currentDateTime().addDays(-5)});
-    m_tickets.append({4, "Printer out of toner", "Open", "Medium", "Printer on the 3rd floor is empty.", QDateTime::currentDateTime()});
-    m_tickets.append({5, "Software installation", "Open", "Low", "Please install Qt Creator.", QDateTime::currentDateTime().addSecs(-10000)});
-}
+TicketTableModel::TicketTableModel(QObject *parent) : QAbstractTableModel{parent}{}
 
 int TicketTableModel::rowCount(const QModelIndex &parent) const
 {
@@ -89,4 +81,16 @@ Ticket TicketTableModel::getTicket(int row) const
 {
     if (row < 0 || row >= m_tickets.size()) return Ticket();
     return m_tickets.at(row);
+}
+
+void TicketTableModel::setItems(const QList<Ticket> &items)
+{
+    beginResetModel();
+    m_tickets = items;
+    endResetModel();
+}
+
+QList<Ticket> TicketTableModel::getItems() const
+{
+    return m_tickets;
 }
