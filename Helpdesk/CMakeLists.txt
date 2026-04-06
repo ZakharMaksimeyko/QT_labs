@@ -16,6 +16,7 @@ qt_add_executable(Helpdesk
     ticket.h
     tickettablemodel.h tickettablemodel.cpp
     csvticketrepository.h csvticketrepository.cpp
+    ticketfilterproxymodel.h ticketfilterproxymodel.cpp
 )
 
 target_link_libraries(Helpdesk

@@ -10,9 +10,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     m_model = new TicketTableModel(this);
-    ui->tableView->setModel(m_model);
-    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_proxyModel = new TicketFilterProxyModel(this);
+    m_proxyModel->setSourceModel(m_model);
+    ui->tableView->setModel(m_proxyModel);
+    ui->tableView->setSortingEnabled(true);
+    connect(ui->lineEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
+        m_proxyModel->setTextFilter(text);
+        updateEmptyState();
+    });
+    connect(ui->comboStatus, &QComboBox::currentTextChanged, this, [this](const QString &status) {
+        m_proxyModel->setStatusFilter(status);
+        updateEmptyState();
+    });
+    connect(ui->comboPriority, &QComboBox::currentTextChanged, this, [this](const QString &priority) {
+        m_proxyModel->setPriorityFilter(priority);
+        updateEmptyState();
+    });
+    connect(ui->tableView, &QTableView::doubleClicked, this, &MainWindow::on_actionEdit_triggered);
 
     auto *header = ui->tableView->horizontalHeader();
     header->setSectionResizeMode(TicketTableModel::TitleCol, QHeaderView::Stretch);
@@ -20,8 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     header->setSectionResizeMode(TicketTableModel::PriorityCol, QHeaderView::ResizeToContents);
     header->setSectionResizeMode(TicketTableModel::StatusCol, QHeaderView::ResizeToContents);
     header->setSectionResizeMode(TicketTableModel::CreatedAtCol, QHeaderView::ResizeToContents);
-    connect(ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &MainWindow::updateActions);
+    connect(ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &MainWindow::updateActions);
     updateActions();
 
     ticketDialog = new TicketDialog(this);
@@ -75,22 +88,27 @@ void MainWindow::on_actionNew_triggered() {
 void MainWindow::on_actionEdit_triggered() {
     QModelIndex cur = ui->tableView->currentIndex();
     if (!cur.isValid()) return;
-    Ticket t = m_model->getTicket(cur.row());
+
+    QModelIndex sourceIndex = m_proxyModel->mapToSource(cur);
+    Ticket t = m_model->getTicket(sourceIndex.row());
+
     ticketDialog->setMode(TicketDialog::DialogMode::Edit);
     ticketDialog->loadTicket(t);
     ticketDialog->show();
     ticketDialog->raise();
     ticketDialog->activateWindow();
 }
-
 void MainWindow::on_actionDelete_triggered() {
     QModelIndex cur = ui->tableView->currentIndex();
     if (!cur.isValid()) return;
+
+    QModelIndex sourceIndex = m_proxyModel->mapToSource(cur);
 
     auto result = QMessageBox::question(this, "Удаление заявки", "Вы действительно хотите удалить выбранную заявку?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (result == QMessageBox::Yes) {
         m_model->removeTicket(cur.row());
         saveData();
+        updateEmptyState();
     }
 }
 void MainWindow::on_actionView_triggered() {
@@ -104,9 +122,27 @@ void MainWindow::on_actionView_triggered() {
     ticketDialog->activateWindow();
 }
 
+void MainWindow::on_actionRefresh_triggered() {
+    QModelIndex cur = ui->tableView->currentIndex();
+    if (!cur.isValid()) return;
+
+    updateActions();
+}
+
+void MainWindow::on_btnClear_clicked(){
+    ui->lineEdit->setText(" ");
+    updateActions();
+}
+
+
 void MainWindow::saveData()
 {
     if (m_repository && m_model) {
         m_repository->saveAll(m_model->getItems());
     }
+}
+
+void MainWindow::updateEmptyState() {
+    bool empty = (m_proxyModel->rowCount() == 0);
+    updateActions();
 }

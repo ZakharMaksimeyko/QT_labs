@@ -10,7 +10,7 @@ class TicketTableModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    enum Column { IdCol, TitleCol, PriorityCol, StatusCol, CreatedAtCol, ColCount };
+    enum Column { IdCol, TitleCol,  StatusCol, PriorityCol, CreatedAtCol, ColCount };
 
     explicit TicketTableModel(QObject *parent = nullptr);
 
