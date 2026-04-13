@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QStandardItemModel>
+#include "databasemanager.h"
+#include "repository.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,15 +21,20 @@ public:
     ~MainWindow();
 
 private slots:
-    void onNewTriggered();
-    void onEditTriggered();
-    void onDeleteTriggered();
+    void on_actionNew_triggered();
+    void on_actionEdit_triggered();
+    void on_actionDelete_triggered();
+    void onItemChanged(QStandardItem *item);
 
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *model;
 
+    DatabaseManager dbManager;
+    Repository *repository;
+
     void setupTable();
     void connectActions();
+    void loadDataToTable();
 };
 #endif // MAINWINDOW_H
