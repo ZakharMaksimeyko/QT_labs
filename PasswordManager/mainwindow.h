@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStandardItemModel>
+#include <QSortFilterProxyModel>
 #include "databasemanager.h"
 #include "repository.h"
+#include "passwordtablemodel.h"
+#include "passwordfilterproxymodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,11 +26,17 @@ private slots:
     void on_actionNew_triggered();
     void on_actionEdit_triggered();
     void on_actionDelete_triggered();
-    void onItemChanged(QStandardItem *item);
+    void on_btnClear_clicked();
+    void on_actionCpUs_triggered();
+    void on_actionCpPs_triggered();
+    void onSearchTextChanged(const QString &text);
+    void onCategoryChanged(const QString &category);
+    void updateEmptyState();
 
 private:
     Ui::MainWindow *ui;
-    QStandardItemModel *model;
+    PasswordTableModel *sourceModel;
+    PasswordFilterProxyModel *proxyModel;
 
     DatabaseManager dbManager;
     Repository *repository;

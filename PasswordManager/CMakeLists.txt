@@ -14,6 +14,9 @@ qt_add_executable(PasswordManager
     databasemanager.h databasemanager.cpp
     passwordrecord.h
     repository.h repository.cpp
+    passwordtablemodel.h
+    passwordtablemodel.cpp
+    passwordfilterproxymodel.h passwordfilterproxymodel.cpp
 )
 
 target_link_libraries(PasswordManager

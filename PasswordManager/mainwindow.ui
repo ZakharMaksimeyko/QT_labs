@@ -19,6 +19,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>Categoty:</string>
         </property>
@@ -31,19 +37,86 @@
           <string>All</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>Account</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Website</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Device</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnClear">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>Clear</string>
         </property>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="emptyStateLabel">
+      <property name="font">
+       <font>
+        <family>Nirmala Text</family>
+        <pointsize>16</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Нічого не знайдено</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QTableView" name="tableView"/>
@@ -106,10 +179,10 @@
    <addaction name="actionDeleteIcon"/>
    <addaction name="actionDelete"/>
    <addaction name="separator"/>
+   <addaction name="actionCpUsIcon"/>
    <addaction name="actionCpUs"/>
-   <addaction name="actionCopy_Useername"/>
+   <addaction name="actionCpPsIcon"/>
    <addaction name="actionCpPs"/>
-   <addaction name="actionCopy_Password"/>
   </widget>
   <action name="actionNew">
    <property name="text">
@@ -159,7 +232,7 @@
     <string>DeleteIcon</string>
    </property>
   </action>
-  <action name="actionCopy_Useername">
+  <action name="actionCpUs">
    <property name="text">
     <string>Copy Username</string>
    </property>
@@ -167,7 +240,7 @@
     <string>Ctrl+C</string>
    </property>
   </action>
-  <action name="actionCpUs">
+  <action name="actionCpUsIcon">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::EditCopy"/>
    </property>
@@ -175,7 +248,7 @@
     <string>CpUs</string>
    </property>
   </action>
-  <action name="actionCopy_Password">
+  <action name="actionCpPs">
    <property name="text">
     <string>Copy Password</string>
    </property>
@@ -183,7 +256,7 @@
     <string>Ctrl+Shift+С</string>
    </property>
   </action>
-  <action name="actionCpPs">
+  <action name="actionCpPsIcon">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::EditCopy"/>
    </property>
