@@ -13,10 +13,14 @@ MainWindow::MainWindow(QWidget *parent)
     if (dbManager.open("vault.db")) {
         dbManager.initializeSchema();
     }
+    if(ui->progressBar) {
+        ui->progressBar->setVisible(false);
+    }
     repository = new Repository(dbManager.database());
     sourceModel = new PasswordTableModel(repository, this);
     proxyModel = new PasswordFilterProxyModel(this);
     leakChecker = new PasswordLeakChecker(this);
+    batchWatcher = new QFutureWatcher<BatchCheckResult>(this);
     proxyModel->setSourceModel(sourceModel);
     proxyModel->setFilterKeyColumn(1);
     proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -24,13 +28,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
     connect(ui->comboSort, &QComboBox::currentTextChanged, this, &MainWindow::onCategoryChanged);
+    connect(ui->actionCheckPassword, &QAction::triggered, this, &MainWindow::checkSelectedPassword);
+    connect(ui->actionCheckAll, &QAction::triggered, this, &MainWindow::checkAllPasswords);
     connect(proxyModel, &QAbstractItemModel::rowsInserted, this, &MainWindow::updateEmptyState);
     connect(proxyModel, &QAbstractItemModel::rowsRemoved, this, &MainWindow::updateEmptyState);
     connect(proxyModel, &QAbstractItemModel::layoutChanged, this, &MainWindow::updateEmptyState);
     connect(proxyModel, &QAbstractItemModel::modelReset, this, &MainWindow::updateEmptyState);
     connect(leakChecker, &PasswordLeakChecker::checkCompleted, this, &MainWindow::onLeakCheckCompleted);
     connect(leakChecker, &PasswordLeakChecker::checkFailed, this, &MainWindow::onLeakCheckFailed);
-    connect(ui->actionCheckPassword, &QAction::triggered, this, &MainWindow::checkSelectedPassword);
+    connect(batchWatcher, &QFutureWatcher<BatchCheckResult>::finished, this, &MainWindow::onBatchCheckFinished);
+
     setupTable();
     loadDataToTable();
 }
@@ -186,4 +193,44 @@ void MainWindow::onLeakCheckFailed(const QString &errorMessage)
     ui->actionCheckPassword->setEnabled(true);
     statusBar()->clearMessage();
     QMessageBox::warning(this, "Помилка перевірки", errorMessage);
+}
+
+void MainWindow::checkAllPasswords()
+{
+    QList<QString> passwords;
+    for (int i = 0; i < sourceModel->rowCount(); ++i) {
+        passwords.append(sourceModel->itemAt(i).password);
+    }
+    if (passwords.isEmpty()) {
+        QMessageBox::information(this, "Увага", "Немає записів для перевірки.");
+        return;
+    }
+    ui->actionCheckAll->setEnabled(false);
+    ui->progressBar->setRange(0, passwords.size());
+    ui->progressBar->setValue(0);
+    ui->progressBar->setVisible(true);
+    statusBar()->showMessage("Виконується масова перевірка паролів...");
+    QFuture<BatchCheckResult> future = QtConcurrent::run(PasswordLeakChecker::runBatchCheck, passwords, this);
+    batchWatcher->setFuture(future);
+}
+
+void MainWindow::updateBatchProgress(int current)
+{
+    if (ui->progressBar) {
+        ui->progressBar->setValue(current);
+    }
+}
+
+void MainWindow::onBatchCheckFinished()
+{
+    BatchCheckResult result = batchWatcher->result();
+    ui->actionCheckAll->setEnabled(true);
+    if (ui->progressBar) ui->progressBar->setVisible(false);
+    statusBar()->clearMessage();
+    QString message = QString("Перевірку завершено!\n\nВсього перевірено: %1\nЗлитих паролів знайдено: %2").arg(result.checked).arg(result.compromised);
+    if (result.compromised > 0) {
+        QMessageBox::warning(this, "Результати масової перевірки", message);
+    } else {
+        QMessageBox::information(this, "Усе безпечно!", message);
+    }
 }

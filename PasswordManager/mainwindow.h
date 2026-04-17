@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QSortFilterProxyModel>
+#include <QFutureWatcher>
+#include <QtConcurrent>
 #include "databasemanager.h"
 #include "repository.h"
 #include "passwordtablemodel.h"
@@ -36,13 +38,17 @@ private slots:
     void checkSelectedPassword();
     void onLeakCheckCompleted(bool isCompromised, int count);
     void onLeakCheckFailed(const QString &errorMessage);
+    void checkAllPasswords();
+    void onBatchCheckFinished();
+
+    Q_INVOKABLE void updateBatchProgress(int current);
 
 private:
     Ui::MainWindow *ui;
     PasswordTableModel *sourceModel;
     PasswordFilterProxyModel *proxyModel;
     PasswordLeakChecker *leakChecker;
-
+    QFutureWatcher<BatchCheckResult> *batchWatcher;
     DatabaseManager dbManager;
     Repository *repository;
 

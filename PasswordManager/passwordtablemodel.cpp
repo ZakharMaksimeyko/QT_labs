@@ -77,7 +77,7 @@ bool PasswordTableModel::setData(const QModelIndex &index, const QVariant &value
     case 2: updatedItem.username = value.toString(); break;
     case 3: updatedItem.password = value.toString(); break;
     case 4: updatedItem.website = value.toString(); break;
-    case 5: updatedItem.category = value.toString(); break;
+    case 5: updatedItem.category = value.toString(); break; 
     default: return false;
     }
 

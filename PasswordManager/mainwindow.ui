@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>980</width>
     <height>600</height>
    </rect>
   </property>
@@ -121,6 +121,16 @@
     <item>
      <widget class="QTableView" name="tableView"/>
     </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>0</number>
+      </property>
+      <property name="textVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -128,7 +138,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>980</width>
      <height>25</height>
     </rect>
    </property>
@@ -183,8 +193,11 @@
    <addaction name="actionCpUs"/>
    <addaction name="actionCpPsIcon"/>
    <addaction name="actionCpPs"/>
+   <addaction name="separator"/>
    <addaction name="actionCkPsIcon"/>
    <addaction name="actionCheckPassword"/>
+   <addaction name="actionCkAlIcon"/>
+   <addaction name="actionCheckAll"/>
   </widget>
   <action name="actionNew">
    <property name="text">
@@ -298,6 +311,19 @@
    </property>
    <property name="text">
     <string>CkPsIcon</string>
+   </property>
+  </action>
+  <action name="actionCkAlIcon">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditFind"/>
+   </property>
+   <property name="text">
+    <string>CkAlIcon</string>
+   </property>
+  </action>
+  <action name="actionCheckAll">
+   <property name="text">
+    <string>Check All Passwords</string>
    </property>
   </action>
  </widget>

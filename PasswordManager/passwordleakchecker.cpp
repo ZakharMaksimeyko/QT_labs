@@ -2,6 +2,7 @@
 #include <QCryptographicHash>
 #include <QNetworkRequest>
 #include <QUrl>
+#include <QEventLoop>
 
 PasswordLeakChecker::PasswordLeakChecker(QObject *parent)
     : QObject(parent), m_networkManager(new QNetworkAccessManager(this))
@@ -51,4 +52,37 @@ void PasswordLeakChecker::checkPassword(const QString &password)
         emit checkCompleted(found, leakCount);
         reply->deleteLater();
     });
+}
+
+BatchCheckResult PasswordLeakChecker::runBatchCheck(const QList<QString> &passwords, QObject *receiver)
+{
+    BatchCheckResult result;
+    result.total = passwords.size();
+    QNetworkAccessManager manager;
+    for (int i = 0; i < passwords.size(); ++i) {
+        QString password = passwords[i];
+        if (!password.isEmpty()) {
+            QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1).toHex().toUpper();
+            QString prefix = hash.left(5);
+            QString suffix = hash.mid(5);
+            QNetworkRequest request(QUrl("https://api.pwnedpasswords.com/range/" + prefix));
+            request.setRawHeader("Add-Padding", "true");
+            QNetworkReply *reply = manager.get(request);
+            QEventLoop loop;
+            QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+            loop.exec();
+            if (reply->error() == QNetworkReply::NoError) {
+                QByteArray response = reply->readAll();
+                if (response.contains(suffix.toUtf8())) {
+                    result.compromised++;
+                }
+            }
+            reply->deleteLater();
+        }
+        result.checked++;
+        if (receiver) {
+            QMetaObject::invokeMethod(receiver, "updateBatchProgress", Qt::QueuedConnection, Q_ARG(int, result.checked), Q_ARG(int, result.total));
+        }
+    }
+    return result;
 }

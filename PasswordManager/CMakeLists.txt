@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(PasswordManager LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Widgets Sql Network)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Widgets Sql Network Concurrent)
 
 qt_standard_project_setup()
 
@@ -26,6 +26,7 @@ target_link_libraries(PasswordManager
         Qt::Widgets
         Qt::Sql
         Qt::Network
+        Qt::Concurrent
 )
 
 include(GNUInstallDirs)
