@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(PasswordManager LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Widgets Sql)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Widgets Sql Network)
 
 qt_standard_project_setup()
 
@@ -17,6 +17,7 @@ qt_add_executable(PasswordManager
     passwordtablemodel.h
     passwordtablemodel.cpp
     passwordfilterproxymodel.h passwordfilterproxymodel.cpp
+    passwordleakchecker.h passwordleakchecker.cpp
 )
 
 target_link_libraries(PasswordManager
@@ -24,6 +25,7 @@ target_link_libraries(PasswordManager
         Qt::Core
         Qt::Widgets
         Qt::Sql
+        Qt::Network
 )
 
 include(GNUInstallDirs)

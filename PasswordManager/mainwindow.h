@@ -7,6 +7,7 @@
 #include "repository.h"
 #include "passwordtablemodel.h"
 #include "passwordfilterproxymodel.h"
+#include "passwordleakchecker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,11 +33,15 @@ private slots:
     void onSearchTextChanged(const QString &text);
     void onCategoryChanged(const QString &category);
     void updateEmptyState();
+    void checkSelectedPassword();
+    void onLeakCheckCompleted(bool isCompromised, int count);
+    void onLeakCheckFailed(const QString &errorMessage);
 
 private:
     Ui::MainWindow *ui;
     PasswordTableModel *sourceModel;
     PasswordFilterProxyModel *proxyModel;
+    PasswordLeakChecker *leakChecker;
 
     DatabaseManager dbManager;
     Repository *repository;

@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     repository = new Repository(dbManager.database());
     sourceModel = new PasswordTableModel(repository, this);
     proxyModel = new PasswordFilterProxyModel(this);
+    leakChecker = new PasswordLeakChecker(this);
     proxyModel->setSourceModel(sourceModel);
     proxyModel->setFilterKeyColumn(1);
     proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -27,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(proxyModel, &QAbstractItemModel::rowsRemoved, this, &MainWindow::updateEmptyState);
     connect(proxyModel, &QAbstractItemModel::layoutChanged, this, &MainWindow::updateEmptyState);
     connect(proxyModel, &QAbstractItemModel::modelReset, this, &MainWindow::updateEmptyState);
+    connect(leakChecker, &PasswordLeakChecker::checkCompleted, this, &MainWindow::onLeakCheckCompleted);
+    connect(leakChecker, &PasswordLeakChecker::checkFailed, this, &MainWindow::onLeakCheckFailed);
+    connect(ui->actionCheckPassword, &QAction::triggered, this, &MainWindow::checkSelectedPassword);
     setupTable();
     loadDataToTable();
 }
@@ -144,4 +148,42 @@ void MainWindow::on_actionCpUs_triggered()
 void MainWindow::on_btnClear_clicked()
 {
     ui->lineEdit->setText("");
+}
+
+void MainWindow::checkSelectedPassword()
+{
+    QModelIndex proxyIndex = ui->tableView->currentIndex();
+    if (!proxyIndex.isValid()) {
+        QMessageBox::warning(this, "Увага", "Виберіть запис для перевірки!");
+        return;
+    }
+    QModelIndex sourceIndex = proxyModel->mapToSource(proxyIndex);
+    QString password = sourceModel->itemAt(sourceIndex.row()).password;
+    if (password.isEmpty()) {
+        QMessageBox::information(this, "Перевірка", "Пароль порожній, перевіряти нічого.");
+        return;
+    }
+
+    ui->actionCheckPassword->setEnabled(false);
+    statusBar()->showMessage("Перевірка пароля у базах витоків...");
+    leakChecker->checkPassword(password);
+}
+
+void MainWindow::onLeakCheckCompleted(bool isCompromised, int count)
+{
+    ui->actionCheckPassword->setEnabled(true);
+    statusBar()->clearMessage();
+    if (isCompromised) {
+        QString msg = QString("Небезпека!\nЦей пароль було знайдено у злитих базах %1 разів!\nНегайно змініть його!").arg(count);
+        QMessageBox::critical(this, "Перевірка завершена", msg);
+    } else {
+        QMessageBox::information(this, "Безпечно", "Чудово! Цей пароль не знайдено у відомих базах витоків.");
+    }
+}
+
+void MainWindow::onLeakCheckFailed(const QString &errorMessage)
+{
+    ui->actionCheckPassword->setEnabled(true);
+    statusBar()->clearMessage();
+    QMessageBox::warning(this, "Помилка перевірки", errorMessage);
 }

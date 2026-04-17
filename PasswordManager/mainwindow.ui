@@ -183,6 +183,8 @@
    <addaction name="actionCpUs"/>
    <addaction name="actionCpPsIcon"/>
    <addaction name="actionCpPs"/>
+   <addaction name="actionCkPsIcon"/>
+   <addaction name="actionCheckPassword"/>
   </widget>
   <action name="actionNew">
    <property name="text">
@@ -283,6 +285,19 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionCheckPassword">
+   <property name="text">
+    <string>Check Password</string>
+   </property>
+  </action>
+  <action name="actionCkPsIcon">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditFind"/>
+   </property>
+   <property name="text">
+    <string>CkPsIcon</string>
    </property>
   </action>
  </widget>
